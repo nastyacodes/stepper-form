@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="col s12 15 offset-12">
+        <form method="POST">
+            <div class="tab">
+                <label>Вкажіть своє повне ім'я</label>
+                <div class="input-field col s12">
+                    <input id="firstName" name="firstName" type="text">
+                    <label for="firstName">Ім'я</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="lastName" name="lastName" type="text">
+                    <label for="lastName">Прізвище</label>
+                </div>
+            </div>
+            <div class="tab">
+                <label for="role">Вкажіть, хто ви</label>
+                <p>
+                    <label>
+                      <input id="role" name="role" type="radio"/>
+                      <span>Студент</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                      <input id="role" name="role" type="radio"/>
+                      <span>Викладач</span>
+                    </label>
+                </p>
+            </div>
+            <div class="tab">
+                <label for="role">Погодження з умовами обробки персональних даних</label>
+                <p>
+                    <label>
+                      <input id="agreeCheck" name="agreeCheck" type="checkbox"/>
+                      <span>Я погоджуюся з обробкою персональних даних</span>
+                    </label>
+                  </p>
+            </div>
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                  <button type="button" class="waves-effect waves-light btn" id="prevBtn" onclick="nextPrev(-1)">Назад</button>
+                  <button type="button" class="waves-effect waves-light btn" id="nextBtn" onclick="nextPrev(1)">Далі</button>
+                </div>
+            </div>
+
+            <div class="steps">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src='state-machine.js'></script>
+    <script src="app.js"></script>
+</body>
+</html>
