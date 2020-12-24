@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма</title>
+    <title>Покрокова форма</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="col s12 15 offset-12">
-        <form method="POST">
+    <div class="col s12 15 offset-12 container">
+        <form id="form" method="POST">
             <div class="tab">
                 <label>Вкажіть своє повне ім'я</label>
                 <div class="input-field col s12">
@@ -42,13 +42,18 @@
                 <p>
                     <label>
                       <input id="agreeCheck" name="agreeCheck" type="checkbox"/>
-                      <span>Я погоджуюся з обробкою персональних даних</span>
+                      <span>Я погоджуюся з умови обробки персональних даних</span>
                     </label>
                   </p>
             </div>
 
-            <div style="overflow:auto;">
-                <div style="float:right;">
+            <h1 class="message">
+                Ваші дані успішно відправлено (:
+            </h1>
+
+            <!-- /.message -->
+            <div class="buttons">
+                <div class="buttons__inner">
                   <button type="button" class="waves-effect waves-light btn" id="prevBtn" onclick="nextPrev(-1)">Назад</button>
                   <button type="button" class="waves-effect waves-light btn" id="nextBtn" onclick="nextPrev(1)">Далі</button>
                 </div>
@@ -64,7 +69,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src='state-machine.js'></script>
     <script src="app.js"></script>
 </body>
 </html>

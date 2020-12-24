@@ -1,43 +1,32 @@
-let fsm = new StateMachine({
-    init: 'solid',
-    transitions: [
-      { name: 'check',   from: 'nameInput',       to: 'nameValidation' },
-      { name: 'error',   from: 'nameValidation',  to: 'nameInput'  },
-      { name: 'success', from: 'nameValidation',  to: 'roleInput'},
-      { name: 'check',   from: 'roleInput',       to: 'roleValidation' },
-      { name: 'error',   from: 'roleValidation',  to: 'roleInput'  },
-      { name: 'success', from: 'roleValidation',  to: 'agreeInput'},
-      { name: 'check',   from: 'agreeInput',      to: 'agreeValidation' },
-      { name: 'error',   from: 'agreeValidation', to: 'agreeInput'  },
-      { name: 'success', from: 'agreeValidation', to: 'formSubmit'}
-    ],
-    methods: {
-      onNameInputCheck:    function() { console.log('Перевірка введеного імені') },
-      onNameInputError:    function() { console.log('Помилка при введені імені') },
-      onNameInputSuccess:  function() { console.log('Введення імені успішно перевірено') },
-      onRoleInputCheck:    function() { console.log('Перевірка введеної ролі') },
-      onRoleInputError:    function() { console.log('Помилка при введені ролі') },
-      onRoleInputSuccess:  function() { console.log('Введення ролі успішно перевірено') },
-      onAgreeInputCheck:   function() { console.log('Перевірка погодження з умовами') },
-      onAgreeInputError:   function() { console.log('Помилка при погодженні з умовами') },
-      onAgreeInputSuccess: function() { console.log('Погодження з умовами успішно перевірено') }
-    }
-});
+let currentTab = 0;
+let tabs = document.querySelectorAll('.tab');
+const stepsSection = document.querySelector('.steps');
+const steps = document.querySelectorAll('.step');
+const buttonsSection = document.querySelector('.buttons');
+const prevBtn = document.querySelector('#prevBtn');
+const nextBtn = document.querySelector('#nextBtn');
+const message = document.querySelector('.message');
 
-let currentTab = 0; // ПОТОЧНИЙ СТАН
-let tabs = document.getElementsByClassName("tab");
-showTab(currentTab); // показуємо перший крок
+showTab(currentTab);
+
+prevBtn.addEventListener('click', () => {
+    nextPrev(-1)
+});
+nextBtn.addEventListener('click', () => {
+    nextPrev(1)
+});
 
 function showTab(n) {
 
     tabs[n].style.display = "block";
+    console.log(n)
 
-  if (n == 0) {
+  if (n === -1) {
     document.getElementById("prevBtn").style.display = "none";
   } else {
     document.getElementById("prevBtn").style.display = "inline";
   }
-  if (n == (tabs.length - 1)) {
+  if (n === (tabs.length - 1)) {
     document.getElementById("nextBtn").innerHTML = "Відправити";
   } else {
     document.getElementById("nextBtn").innerHTML = "Далі";
@@ -48,14 +37,14 @@ function showTab(n) {
 
 function nextPrev(n) {
 
-  if (n == 1 && !validateForm()) return false;
+  if (n === 1 && !validateForm()) return false;
   tabs[currentTab].style.display = "none";
  
   currentTab = currentTab + n;
  
   if (currentTab >= tabs.length) {
-    document.getElementById("regForm").submit();
-    return false;
+      submitForm();
+      return false;
   }
 
   showTab(currentTab);
@@ -71,7 +60,7 @@ function validateForm() {
     valid = true;
 
     for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].value == "") {
+        if (inputs[i].value === '') {
             label.classList.add('invalid');
             valid = false;
             break;
@@ -113,10 +102,16 @@ function validateForm() {
 
 function fixStepIndicator(n) {
   // This function removes the "active" class of all steps...
-  const steps = document.getElementsByClassName("step");
+
   for (i = 0; i < steps.length; i++) {
     steps[i].className = steps[i].className.replace(" active", "");
   }
   //... and adds the "active" class to the current step:
   steps[n].className += " active";
+}
+
+function submitForm() {
+    stepsSection.style.display = 'none';
+    buttonsSection.style.display = 'none';
+    message.classList.add('show');
 }
